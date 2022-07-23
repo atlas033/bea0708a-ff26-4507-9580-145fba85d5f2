@@ -1,1 +1,2 @@
-# bea0708a-ff26-4507-9580-145fba85d5f2
+### Events App
+## How to run this
