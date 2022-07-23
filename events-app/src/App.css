@@ -24,6 +24,7 @@
   color: white;
   top: 0px;
   position: sticky;
+  padding: 8px;
 }
 
 .App-link {
@@ -40,4 +41,10 @@
 .App-searchContainer{
   display: flex;
   align-items: center;
+}
+
+
+.App-main {
+  max-width: 1000px;
+  margin: 0 auto;
 }

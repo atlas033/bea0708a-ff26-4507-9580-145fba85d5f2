@@ -50,7 +50,7 @@ const Search = styled('div')(({ theme }) => ({
     },
   }));
 
-    export default function Header({onSearchChange}){
+    export default function Header({onSearchChange, itemsInShoppingCartCount, onShoppingCartClick}) {
         return(
             <header className="App-header">
             <div className='App-searchContainer'>
@@ -64,9 +64,16 @@ const Search = styled('div')(({ theme }) => ({
                   onChange={(event) => onSearchChange(event.target.value)}
                 />
               </Search>
-              <IconButton  aria-label="logo"> <FilterAltOutlinedIcon className="App-icon"/> </IconButton>
+
+              <IconButton  aria-label="logo">
+              <FilterAltOutlinedIcon className="App-icon"/>
+          </IconButton>
             </div>
-          <IconButton  aria-label="logo"> <ShoppingCartOutlinedIcon className="App-icon"/> </IconButton>
+          <IconButton onClick={onShoppingCartClick} aria-label="logo"> 
+          <Badge badgeContent={itemsInShoppingCartCount} color="error">
+            <ShoppingCartOutlinedIcon className="App-icon"/> 
+            </Badge> 
+          </IconButton>
           </header>
         );
     };
