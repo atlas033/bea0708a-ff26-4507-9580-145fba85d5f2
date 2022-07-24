@@ -1,12 +1,22 @@
+import EventsContainer from "./EventsContainer";
 
+export default function Main({events, showShoppingCart, onClickAddToShoppingCart, onClickRemoveFromShoppingCart}) {
 
-export default function Main({data, shoppingCartData, showShoppingCart}) {
+    const uniqueDates = [...new Set(events.map(event => event.date))].sort((a, b) => new Date(a)-new Date(b))
+    
     return (
         <div className="App-main">
-            <h1>Public Events</h1>
-        {showShoppingCart ? <p>Shopping Cart true</p>: <p>Shopping Cart false</p>}
-        <p>{JSON.stringify(data)}</p>
-      
+            
+            { showShoppingCart ? (<h1>Shopping Cart</h1>) : (<h1>Public Events</h1>) }
+            {uniqueDates.map(date => (
+            <EventsContainer
+                date={date}
+                events={events.filter(event => event.date === date)}
+                onClickAddToShoppingCart={onClickAddToShoppingCart}
+                onClickRemoveFromShoppingCart={onClickRemoveFromShoppingCart}
+                showShoppingCart={showShoppingCart}
+            />
+            ))}
         </div>
     );
 }

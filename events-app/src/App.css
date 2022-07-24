@@ -45,6 +45,17 @@
 
 
 .App-main {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+.EventCard-cardcontent {
+  text-align: left;
+}
+
+.EventCard-cardcontent-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
