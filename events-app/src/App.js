@@ -5,7 +5,8 @@ import Main from './components/Main';
 import React from 'react';
 
 
-function App({ data }) {
+function App({ fdata }) {
+  const [data, setData] = useState(parseData(fdata));
   const [eventIDs, setEventIDs] = useState(data.map(event => event._id));
   const [shoppingCartEventIDs, setShoppingCartEventIDs] = useState([]);
   const [searchString, setSearchString] = useState('');
@@ -37,7 +38,6 @@ function App({ data }) {
         onShoppingCartClick={handleShoppingCartClick}
         showShoppingCart={showShoppingCart}
       />
-      
       <Main
       events={showShoppingCart ? eventsInShoppingCart() : filteredEvents()}// && altParseData(data).sort((a, b) => new Date(a)-new Date(b))}
       showShoppingCart={showShoppingCart}
@@ -55,16 +55,16 @@ function containsEvent(eventIDs, event) {
 }
 
 function parseData(data) {
-  return data.map(event => ([...{
+  return [... (data.map(event => ({
     _id: event._id,
     title: event.title,
-    date: new Date(event.date),
+    date: event.date,
     flyerFront: event.flyerFront,
     startTime: event.startTime,
     endTime: event.endTime,
     city: event.city,
     venue: event.venue,
-  }]));
+  }))) ];
 }
 
 

@@ -9,12 +9,11 @@ import RemoveShoppingCartOutlinedIcon from '@mui/icons-material/RemoveShoppingCa
 
 
 export default function EventsContainer({date, events, onClickAddToShoppingCart, onClickRemoveFromShoppingCart, showShoppingCart}) {
-    const convertedDate = Date(date);
 
     return (
-        <>
+        <div>
         <div className="EventsContainer-header">
-            <Typography variant="h5">{date}</Typography>
+            <Typography variant="h4">{new Date(date).toDateString()}</Typography>
             </div>
             <Grid container spacing={2}>
                 {events.map(event => (
@@ -31,7 +30,7 @@ export default function EventsContainer({date, events, onClickAddToShoppingCart,
                         </Grid>
                 ))}
             </Grid>
-        </>
+        </div>
     );  
 }
 
