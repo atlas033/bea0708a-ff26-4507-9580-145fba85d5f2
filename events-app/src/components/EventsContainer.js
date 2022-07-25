@@ -2,17 +2,20 @@ import { Grid, IconButton, Link, Typography } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import Avatar from '@mui/material/Avatar';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardContent from '@mui/material/CardContent';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import RemoveShoppingCartOutlinedIcon from '@mui/icons-material/RemoveShoppingCartOutlined';
 
 
 export default function EventsContainer({date, events, onClickAddToShoppingCart, onClickRemoveFromShoppingCart, showShoppingCart}) {
+    const convertedDate = Date(date);
 
     return (
         <>
-            <h5>{date}</h5>
+        <div className="EventsContainer-header">
+            <Typography variant="h5">{date}</Typography>
+            </div>
             <Grid container spacing={2}>
                 {events.map(event => (
                     <Grid item xs={12} sm={6} md={4} key={event._id}>
@@ -37,15 +40,17 @@ function EventCard({event, onClickAddToShoppingCart, onClickRemoveFromShoppingCa
     return (
         <Card sx={{ maxWidth: 345 }}>
         <CardHeader
+            className="Eventcard-header"
           title={event.title}
         />
         <CardMedia
           component="img"
-          height="194"
+          height="255"
           image={event.flyerFront}
         />
         <CardContent className="EventCard-cardcontent">
-            <Link target="_blank" href={event.venue.direction }>
+            <Link className="EventCard-link" target="_blank" href={event.venue.direction }>
+                <LocationOnIcon />
                 <Typography variant="body2" color="textSecondary" component="p">{event.venue.name}</Typography>
             </Link>
             <Typography variant="body2" color="textSecondary" component="p">Starts: {event.startTime}</Typography>

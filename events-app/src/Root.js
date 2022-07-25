@@ -17,7 +17,7 @@ export default function Root(){
       if (error) return `Something went wrong: ${error.message}`
       if (data)
         return (
-          <App fetchedData={data}/>
+          <App data={data}/>
         )
       return null
     }}

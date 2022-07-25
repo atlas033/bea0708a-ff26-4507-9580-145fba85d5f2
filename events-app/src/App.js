@@ -5,26 +5,26 @@ import Main from './components/Main';
 import React from 'react';
 
 
-function App({ fetchedData }) {
-  const [events, setEvents] = useState(parseData(fetchedData));
-  const [shoppingCartEvents, setShoppingCartEvents] = useState([]);
+function App({ data }) {
+  const [eventIDs, setEventIDs] = useState(data.map(event => event._id));
+  const [shoppingCartEventIDs, setShoppingCartEventIDs] = useState([]);
   const [searchString, setSearchString] = useState('');
   const [itemsInShoppingCartCount, setItemsInShoppingCartCount] = useState(0);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
 
   const handleOnSearchChange = (string) => setSearchString(string);
   const handleShoppingCartClick = () => setShowShoppingCart(!showShoppingCart);
-  const filteredEvents = () => events.filter(event => event.title.toLowerCase().includes(searchString.toLowerCase()));
-  // const eventsInShoppingCart = () => fetchedData.filter(event => shoppingCartEvents.map(id => event._id === id));
+  const filteredEvents = () => data.filter(event => containsEvent(eventIDs, event)).filter(event => event.title.toLowerCase().includes(searchString.toLowerCase()));
+  const eventsInShoppingCart = () => data.filter(event => containsEvent(shoppingCartEventIDs, event));
   const handleOnClickAddToShoppingCart = (event) => { 
     setItemsInShoppingCartCount(itemsInShoppingCartCount + 1); 
-    setShoppingCartEvents([...shoppingCartEvents, event]);
-    setEvents(events.filter(e => e._id !== event._id));
+    setShoppingCartEventIDs([...shoppingCartEventIDs, event._id]);
+    setEventIDs(eventIDs.filter(id => id !== event._id));
    };
   const handleOnClickRemoveFromShoppingCart = (event) => {
     setItemsInShoppingCartCount(itemsInShoppingCartCount - 1);
-    setShoppingCartEvents(shoppingCartEvents.filter(id => id !== event._id));
-    setEvents([...events, event]);
+    setShoppingCartEventIDs(shoppingCartEventIDs.filter(id => id !== event._id));
+    setEventIDs([...eventIDs, event._id]);
   };
 
 
@@ -35,10 +35,11 @@ function App({ fetchedData }) {
         onSearchChange={handleOnSearchChange}
         itemsInShoppingCartCount={itemsInShoppingCartCount}
         onShoppingCartClick={handleShoppingCartClick}
+        showShoppingCart={showShoppingCart}
       />
       
       <Main
-      events={showShoppingCart ? shoppingCartEvents : filteredEvents()}// && altParseData(data).sort((a, b) => new Date(a)-new Date(b))}
+      events={showShoppingCart ? eventsInShoppingCart() : filteredEvents()}// && altParseData(data).sort((a, b) => new Date(a)-new Date(b))}
       showShoppingCart={showShoppingCart}
       onClickAddToShoppingCart={handleOnClickAddToShoppingCart}
       onClickRemoveFromShoppingCart={handleOnClickRemoveFromShoppingCart}
@@ -48,6 +49,10 @@ function App({ fetchedData }) {
 }
 
 export default App;
+
+function containsEvent(eventIDs, event) {
+  return eventIDs.indexOf(event._id) !== -1;
+}
 
 function parseData(data) {
   return data.map(event => ([...{
@@ -119,10 +124,10 @@ function parseData(data) {
 
 
     // .map(date => {
-    //   const events = data.filter(event => event.date === date);
+    //   const eventIDs = data.filter(event => event.date === date);
     //   return [...
     //      {[date]: 
-    //       events.map(event => [... {"title": event.title, "flyerFront": event.flyerFront, }]) }];
+    //       eventIDs.map(event => [... {"title": event.title, "flyerFront": event.flyerFront, }]) }];
     //     }
     // )
     // }

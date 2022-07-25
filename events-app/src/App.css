@@ -47,10 +47,30 @@
 .App-main {
   max-width: 1200px;
   margin: 0 auto;
+  text-align: left;
+}
+
+.EventsContainer-header{
+  margin-top: 40px;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 90px;
+  color: #003fbc;
+  background-color: wheat;
+  opacity: 0.8; 
+}
+
+.Eventcard-header{
+  min-height: 100px;
 }
 
 .EventCard-cardcontent {
   text-align: left;
+}
+
+.EventCard-link{
+  display: flex;
+  align-items: center;
 }
 
 .EventCard-cardcontent-buttons {

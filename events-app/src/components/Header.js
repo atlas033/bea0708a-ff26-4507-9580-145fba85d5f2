@@ -6,6 +6,7 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -50,7 +51,7 @@ const Search = styled('div')(({ theme }) => ({
     },
   }));
 
-    export default function Header({onSearchChange, itemsInShoppingCartCount, onShoppingCartClick}) {
+    export default function Header({onSearchChange, itemsInShoppingCartCount, onShoppingCartClick, showShoppingCart}) {
         return(
             <header className="App-header">
             <div className='App-searchContainer'>
@@ -69,10 +70,13 @@ const Search = styled('div')(({ theme }) => ({
               <FilterAltOutlinedIcon className="App-icon"/>
           </IconButton>
             </div>
-          <IconButton onClick={onShoppingCartClick} aria-label="logo"> 
-          <Badge badgeContent={itemsInShoppingCartCount} color="error">
-            <ShoppingCartOutlinedIcon className="App-icon"/> 
-            </Badge> 
+          <IconButton onClick={onShoppingCartClick} aria-label="logo">
+          {showShoppingCart ? (
+              <ClearIcon className="App-icon"/>
+            ) : (
+            <Badge badgeContent={itemsInShoppingCartCount} color="error">
+              <ShoppingCartOutlinedIcon className="App-icon"/> 
+            </Badge> ) } 
           </IconButton>
           </header>
         );
